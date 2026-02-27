@@ -37,7 +37,6 @@ class RunOpeninferenceRun(Run):
         Setup run execution.
         """
         self.refresh()
-        self.spec.inputs = self.inputs(as_dict=True)
 
     def wait(self, log_info: bool = True) -> Run:
         """
@@ -86,30 +85,3 @@ class RunOpeninferenceRun(Run):
             return self
 
         return super().wait(log_info=log_info)
-
-    def inputs(self, as_dict: bool = False) -> dict:
-        """
-        Get inputs passed in spec as objects or as dictionaries.
-
-        Parameters
-        ----------
-        as_dict : bool
-            If True, return inputs as dictionaries.
-
-        Returns
-        -------
-        dict
-            Inputs.
-        """
-        inputs = {}
-        if self.spec.inputs is None:
-            return inputs
-
-        for parameter, key in self.spec.inputs.items():
-            entity_type = get_entity_type_from_key(key)
-            entity = get_getter_for_material(entity_type)(key)
-            if as_dict:
-                entity = entity.to_dict()
-            inputs[parameter] = entity
-
-        return inputs

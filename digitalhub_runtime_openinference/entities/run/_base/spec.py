@@ -25,12 +25,13 @@ class RunSpecOpeninferenceRun(RunSpec):
         base_image: str | None = None,
         python_version: str | None = None,
         requirements: list | None = None,
+        model_name: str | None = None,
+        inputs: list | None = None,
+        outputs: list | None = None,
         service_type: str | None = None,
         service_name: str | None = None,
         replicas: int | None = None,
         instructions: dict | None = None,
-        inputs: dict | None = None,
-        parameters: dict | None = None,
         init_parameters: dict | None = None,
         **kwargs,
     ) -> None:
@@ -50,12 +51,13 @@ class RunSpecOpeninferenceRun(RunSpec):
         self.base_image = base_image
         self.python_version = python_version
         self.requirements = requirements
+        self.model_name = model_name
         self.service_type = service_type
         self.service_name = service_name
         self.replicas = replicas
         self.instructions = instructions
         self.inputs = inputs
-        self.parameters = parameters
+        self.outputs = outputs
         self.init_parameters = init_parameters
 
 
@@ -68,6 +70,9 @@ class RunValidatorOpeninferenceRun(RunValidator):
     base_image: str | None = None
     python_version: str | None = None
     requirements: list | None = None
+    model_name: str | None = None
+    inputs: list | None = None
+    outputs: list | None = None
 
     # Task serve
     service_type: str | None = None
@@ -78,11 +83,4 @@ class RunValidatorOpeninferenceRun(RunValidator):
     instructions: list[str] | None = None
 
     # Run parameters
-    inputs: dict | None = None
-    """Run inputs."""
-
-    parameters: dict | None = None
-    """Run parameters."""
-
     init_parameters: dict | None = None
-    """Init function parameters."""
