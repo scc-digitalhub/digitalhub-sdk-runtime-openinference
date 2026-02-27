@@ -4,7 +4,10 @@
 
 from __future__ import annotations
 
-from digitalhub_runtime_openinference.entities.run._base.spec import RunSpecOpeninferenceRun, RunValidatorOpeninferenceRun
+from digitalhub_runtime_openinference.entities.run._base.spec import (
+    RunSpecOpeninferenceRun,
+    RunValidatorOpeninferenceRun,
+)
 
 
 class RunSpecOpeninferenceRunServe(RunSpecOpeninferenceRun):

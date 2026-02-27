@@ -4,11 +4,11 @@
 
 from __future__ import annotations
 
+from digitalhub.entities.function._base.spec import FunctionSpec, FunctionValidator
+from digitalhub_runtime_python.entities.function.python.models import PythonVersion, SourceValidator
 from pydantic import Field
 
-from digitalhub.entities.function._base.spec import FunctionSpec, FunctionValidator
 from digitalhub_runtime_openinference.entities.function.openinference.models import TensorValidator
-from digitalhub_runtime_python.entities.function.python.models import PythonVersion, SourceValidator
 
 
 class FunctionSpecOpeninference(FunctionSpec):
@@ -61,4 +61,3 @@ class FunctionValidatorOpeninference(FunctionValidator):
 
     outputs: list[TensorValidator] = Field(default_factory=list)
     "Function outputs."
-

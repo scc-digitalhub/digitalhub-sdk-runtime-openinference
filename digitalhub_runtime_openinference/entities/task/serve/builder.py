@@ -9,7 +9,10 @@ from digitalhub.entities.task._base.builder import TaskBuilder
 from digitalhub_runtime_openinference.entities._base.runtime_entity.builder import RuntimeEntityBuilderOpeninference
 from digitalhub_runtime_openinference.entities._commons.enums import EntityKinds
 from digitalhub_runtime_openinference.entities.task.serve.entity import TaskOpeninferenceServe
-from digitalhub_runtime_openinference.entities.task.serve.spec import TaskSpecOpeninferenceServe, TaskValidatorOpeninferenceServe
+from digitalhub_runtime_openinference.entities.task.serve.spec import (
+    TaskSpecOpeninferenceServe,
+    TaskValidatorOpeninferenceServe,
+)
 from digitalhub_runtime_openinference.entities.task.serve.status import TaskStatusOpeninferenceServe
 
 

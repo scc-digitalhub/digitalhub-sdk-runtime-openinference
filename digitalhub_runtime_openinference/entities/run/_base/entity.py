@@ -6,9 +6,8 @@ from __future__ import annotations
 
 import time
 import typing
-from typing import Any
 
-from digitalhub.entities._commons.enums import Relationship, State
+from digitalhub.entities._commons.enums import State
 from digitalhub.entities._commons.utils import get_entity_type_from_key
 from digitalhub.entities.run._base.entity import Run
 from digitalhub.factory.entity import entity_factory
@@ -18,8 +17,6 @@ from digitalhub_runtime_openinference.entities._commons.enums import Actions
 from digitalhub_runtime_openinference.entities.run._base.utils import get_getter_for_material
 
 if typing.TYPE_CHECKING:
-    from digitalhub.entities._base.material.entity import MaterialEntity
-
     from digitalhub_runtime_openinference.entities.run._base.spec import RunSpecOpeninferenceRun
     from digitalhub_runtime_openinference.entities.run._base.status import RunStatusOpeninferenceRun
 
@@ -40,15 +37,7 @@ class RunOpeninferenceRun(Run):
         Setup run execution.
         """
         self.refresh()
-        inputs = self.inputs(as_dict=True)
-        if self.spec.local_execution:
-            for _, v in inputs.items():
-                self.add_relationship(
-                    relation=Relationship.CONSUMES.value,
-                    dest=v.get("key"),
-                )
-        self.save(update=True)
-        self.spec.inputs = inputs
+        self.spec.inputs = self.inputs(as_dict=True)
 
     def wait(self, log_info: bool = True) -> Run:
         """
@@ -124,92 +113,3 @@ class RunOpeninferenceRun(Run):
             inputs[parameter] = entity
 
         return inputs
-
-    def output(
-        self,
-        output_name: str,
-        as_key: bool = False,
-        as_dict: bool = False,
-    ) -> MaterialEntity | dict | str | None:
-        """
-        Get run's output by name.
-
-        Parameters
-        ----------
-        output_name : str
-            Key of the result.
-        as_key : bool
-            If True, return result as key.
-        as_dict : bool
-            If True, return result as dictionary.
-
-        Returns
-        -------
-        Entity | dict | str | None
-            Result.
-        """
-        return self.outputs(as_key=as_key, as_dict=as_dict).get(output_name)
-
-    def outputs(
-        self,
-        as_key: bool = False,
-        as_dict: bool = False,
-    ) -> MaterialEntity | dict | str | None:
-        """
-        Get run's outputs.
-
-        Parameters
-        ----------
-        as_key : bool
-            If True, return results as keys.
-        as_dict : bool
-            If True, return results as dictionaries.
-
-        Returns
-        -------
-        dict
-            List of output objects.
-        """
-        outputs = {}
-        if self.status.outputs is None:
-            return outputs
-
-        for parameter, key in self.status.outputs.items():
-            entity_type = get_entity_type_from_key(key)
-            entity = get_getter_for_material(entity_type)(key)
-            if as_key:
-                entity = entity.key
-            if as_dict:
-                entity = entity.to_dict()
-            outputs[parameter] = entity
-
-        return outputs
-
-    def result(self, result_name: str) -> Any:
-        """
-        Get result by name.
-
-        Parameters
-        ----------
-        result_name : str
-            Name of the result.
-
-        Returns
-        -------
-        Any
-            The result.
-        """
-        return self.results().get(result_name)
-
-    def results(self) -> dict:
-        """
-        Get results.
-
-        Returns
-        -------
-        dict
-            The results.
-        """
-        if self.status.results is None:
-            return {}
-        return self.status.results

@@ -9,7 +9,10 @@ from digitalhub.entities.run._base.builder import RunBuilder
 from digitalhub_runtime_openinference.entities._base.runtime_entity.builder import RuntimeEntityBuilderOpeninference
 from digitalhub_runtime_openinference.entities._commons.enums import EntityKinds
 from digitalhub_runtime_openinference.entities.run.build.entity import RunOpeninferenceRunBuild
-from digitalhub_runtime_openinference.entities.run.build.spec import RunSpecOpeninferenceRunBuild, RunValidatorOpeninferenceRunBuild
+from digitalhub_runtime_openinference.entities.run.build.spec import (
+    RunSpecOpeninferenceRunBuild,
+    RunValidatorOpeninferenceRunBuild,
+)
 from digitalhub_runtime_openinference.entities.run.build.status import RunStatusOpeninferenceRunBuild
 
 
