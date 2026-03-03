@@ -8,13 +8,11 @@ import time
 import typing
 
 from digitalhub.entities._commons.enums import State
-from digitalhub.entities._commons.utils import get_entity_type_from_key
 from digitalhub.entities.run._base.entity import Run
 from digitalhub.factory.entity import entity_factory
 from digitalhub.utils.logger import LOGGER
 
 from digitalhub_runtime_openinference.entities._commons.enums import Actions
-from digitalhub_runtime_openinference.entities.run._base.utils import get_getter_for_material
 
 if typing.TYPE_CHECKING:
     from digitalhub_runtime_openinference.entities.run._base.spec import RunSpecOpeninferenceRun
